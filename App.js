@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { Button, StyleSheet, View } from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -12,16 +12,32 @@ const Stack = createNativeStackNavigator()
 export default function App() {
     return (
         <View style={styles.container}>
-            <StatusBar style="dark" />
+            <StatusBar style="light" />
             <NavigationContainer>
-                <Stack.Navigator>
+                <Stack.Navigator
+                    screenOptions={{
+                        headerStyle: {
+                            backgroundColor: '#351401',
+                        },
+                        headerTintColor: 'white',
+                        contentStyle: { backgroundColor: '#3f2f25' },
+                    }}
+                >
                     <Stack.Screen
-                        name="Meals Categories"
+                        name="MealsCategories"
                         component={CategoriesScreen}
+                        options={{ title: 'All categories' }}
                     />
                     <Stack.Screen
-                        name="Meals Overview"
+                        name="MealsOverview"
                         component={MealsOverviewScreen}
+                        // 1. Динамічне заповнення options через callback
+                        // options={({ route, navigation }) => {
+                        //     const catTitle = route.params.categoryTitle
+                        //     return {
+                        //         title: catTitle,
+                        //     }
+                        // }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

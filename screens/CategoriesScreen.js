@@ -5,7 +5,7 @@ import { CATEGORIES } from '../data/dummy-data'
 
 const CategoriesScreen = ({ navigation }) => {
     const pressHandler = (item) => {
-        navigation.navigate('Meals Overview', {
+        navigation.navigate('MealsOverview', {
             categoryID: item.id,
             categoryTitle: item.title,
         })
