@@ -31,21 +31,18 @@ const styles = StyleSheet.create({
         height: 150,
         borderRadius: 8,
         backgroundColor: 'white',
-        ...Platform.select({
-            ios: {
-                shadowColor: '#000',
-                shadowOffset: {
-                    width: 0,
-                    height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 2,
-            },
-            android: {
-                elevation: 0.4,
-                overflow: 'hidden',
-            },
-        }),
+        elevation: Platform.OS === 'android' ? 4 : 0,
+        shadowColor: Platform.OS === 'ios' ? '#000' : undefined,
+        shadowOffset:
+            Platform.OS === 'ios'
+                ? {
+                      width: 0,
+                      height: 2,
+                  }
+                : undefined,
+        shadowOpacity: Platform.OS === 'ios' ? 0.25 : undefined,
+        shadowRadius: Platform.OS === 'ios' ? 8 : undefined,
+        overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     },
     button: {
         flex: 1,
