@@ -7,12 +7,34 @@ import {
     View,
 } from 'react-native'
 
+import { useNavigation } from '@react-navigation/native'
+
+import MealDetailsScreen from '../screens/MealDetailScreen'
+
 const MealItem = ({ item }) => {
-    const mealItemPressHandler = () => {}
+    const navigation = useNavigation()
+    // console.log(item)
+
+    const pressHandler = () => {
+        navigation.navigate('MealDetails', {
+            mealID: item.id,
+            mealTitle: item.title,
+            mealImage: item.imageUrl,
+            mealIngredients: item.ingredients,
+            mealSteps: item.steps,
+            isGlutenFree: item.isGlutenFree,
+            isVegan: item.isVegan,
+            isVegetarian: item.isVegetarian,
+            isLactoseFree: item.isLactoseFree,
+            affordability: item.affordability,
+            complexity: item.complexity,
+            duration: item.duration,
+        })
+    }
     return (
         <View style={styles.itemContainer}>
             <Pressable
-                onPress={mealItemPressHandler}
+                onPress={pressHandler}
                 style={({ pressed }) =>
                     Platform.OS === 'ios' && pressed && styles.buttonPressed
                 }
@@ -37,12 +59,6 @@ const MealItem = ({ item }) => {
                         <Text style={styles.detailItem}>
                             {item.affordability.toUpperCase()}
                         </Text>
-                        {/*<Text>{item.ingredients}</Text>*/}
-                        {/*<Text>{item.steps}</Text>*/}
-                        {/*<Text>{item.isGlutenFree}</Text>*/}
-                        {/*<Text>{item.isVegan}</Text>*/}
-                        {/*<Text>{item.isVegetarian}</Text>*/}
-                        {/*<Text>{item.isLactoseFree}</Text>*/}
                     </View>
                 </View>
             </Pressable>
