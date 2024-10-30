@@ -25,8 +25,6 @@ const MealDetailsScreen = ({ route, navigation }) => {
         duration,
     } = route.params
 
-    console.log(route.params)
-
     useLayoutEffect(() => {
         navigation.setOptions({ title: mealTitle })
     }, [navigation, mealTitle])
@@ -37,17 +35,14 @@ const MealDetailsScreen = ({ route, navigation }) => {
                 await Image.prefetch(mealImage)
                 setIsImageLoading(false)
             } catch (error) {
-                console.error('Error prefetching image:', error)
                 setIsImageLoading(false)
             }
         }
-
         loadImage()
     }, [mealImage])
 
     return (
         <ScrollView style={styles.mealContainer}>
-            <Text style={styles.title}>{mealTitle}</Text>
             <View style={styles.imageContainer}>
                 {isImageLoading && (
                     <View style={styles.loaderContainer}>
@@ -60,62 +55,67 @@ const MealDetailsScreen = ({ route, navigation }) => {
                     onError={() => setIsImageLoading(false)}
                 />
             </View>
-            <View style={styles.mealDetails}>
-                <Text style={styles.detailItem}>{duration} m</Text>
-                <Text style={styles.detailItem}>
-                    {complexity.toUpperCase()}
-                </Text>
-                <Text style={styles.detailItem}>
-                    {affordability.toUpperCase()}
-                </Text>
-            </View>
-
-            <Text style={styles.sectionTitle}>Ingredients</Text>
-            <View style={styles.listContainer}>
-                {mealIngredients.map((ingredient, index) => (
-                    <Text key={ingredient} style={styles.listItem}>
-                        • {ingredient}
+            <View style={styles.detailContainer}>
+                <Text style={styles.title}>{mealTitle}</Text>
+                <View style={styles.mealDetails}>
+                    <Text style={styles.detailItem}>{duration} m</Text>
+                    <Text style={styles.detailItem}>
+                        {complexity.toUpperCase()}
                     </Text>
-                ))}
-            </View>
-
-            <Text style={styles.sectionTitle}>Steps</Text>
-            <View style={styles.listContainer}>
-                {mealSteps.map((step, index) => (
-                    <Text key={index} style={styles.listItem}>
-                        {index + 1}. {step}
+                    <Text style={styles.detailItem}>
+                        {affordability.toUpperCase()}
                     </Text>
-                ))}
-            </View>
+                </View>
 
-            <View style={styles.dietInfo}>
-                <Text style={styles.dietItem}>
-                    {isGlutenFree ? '✓ Gluten Free' : '✗ Contains Gluten'}
-                </Text>
-                <Text style={styles.dietItem}>
-                    {isVegan ? '✓ Vegan' : '✗ Non-Vegan'}
-                </Text>
-                <Text style={styles.dietItem}>
-                    {isVegetarian ? '✓ Vegetarian' : '✗ Non-Vegetarian'}
-                </Text>
-                <Text style={styles.dietItem}>
-                    {isLactoseFree ? '✓ Lactose Free' : '✗ Contains Lactose'}
-                </Text>
+                <View style={styles.subtitleContainer}>
+                    <Text style={styles.sectionTitle}>Ingredients</Text>
+                </View>
+                <View style={styles.listContainer}>
+                    {mealIngredients.map((ingredient, index) => (
+                        <Text key={ingredient} style={styles.listItem}>
+                            • {ingredient}
+                        </Text>
+                    ))}
+                </View>
+
+                <View style={styles.subtitleContainer}>
+                    <Text style={styles.sectionTitle}>Steps</Text>
+                </View>
+                <View style={styles.listContainer}>
+                    {mealSteps.map((step, index) => (
+                        <Text key={index} style={styles.listItem}>
+                            {index + 1}. {step}
+                        </Text>
+                    ))}
+                </View>
+
+                <View style={styles.dietInfo}>
+                    <Text style={styles.dietItem}>
+                        {isGlutenFree ? '✓ Gluten Free' : '✗ Contains Gluten'}
+                    </Text>
+                    <Text style={styles.dietItem}>
+                        {isVegan ? '✓ Vegan' : '✗ Non-Vegan'}
+                    </Text>
+                    <Text style={styles.dietItem}>
+                        {isVegetarian ? '✓ Vegetarian' : '✗ Non-Vegetarian'}
+                    </Text>
+                    <Text style={styles.dietItem}>
+                        {isLactoseFree
+                            ? '✓ Lactose Free'
+                            : '✗ Contains Lactose'}
+                    </Text>
+                </View>
             </View>
         </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-    mealContainer: {
-        padding: 16,
-    },
+    mealContainer: {},
     imageContainer: {
         width: '100%',
         height: 200,
         marginBottom: 16,
-        borderRadius: 8,
-        overflow: 'hidden',
     },
     loaderContainer: {
         position: 'absolute',
@@ -131,12 +131,14 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
+    detailContainer: {
+        paddingHorizontal: 16,
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
         color: 'white',
-        marginBottom: 16,
     },
     mealDetails: {
         flexDirection: 'row',
@@ -149,20 +151,31 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'white',
     },
+    subtitleContainer: {
+        borderBottomWidth: 2,
+        borderColor: '#e2b497',
+    },
     sectionTitle: {
         fontSize: 20,
         fontWeight: 'bold',
         marginVertical: 8,
-        color: 'white',
+        textAlign: 'center',
+        color: '#e2b497',
+        paddingBottom: 8,
     },
     listContainer: {
-        marginBottom: 16,
+        marginVertical: 12,
     },
     listItem: {
-        color: 'white',
-        fontSize: 16,
-        marginVertical: 4,
-        paddingLeft: 8,
+        color: '#3f2f25',
+        fontSize: 18,
+        marginVertical: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        backgroundColor: '#e2b497',
+        borderWidth: 2,
+        borderRadius: 8,
+        overflow: 'hidden',
     },
     dietInfo: {
         marginTop: 16,

@@ -21,7 +21,7 @@ export default function App() {
                         headerStyle: {
                             backgroundColor: '#351401',
                         },
-                        headerTintColor: 'white',
+                        headerTintColor: '#e2b497',
                         contentStyle: { backgroundColor: '#3f2f25' },
                     }}
                 >
