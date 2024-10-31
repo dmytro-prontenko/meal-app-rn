@@ -10,6 +10,8 @@ import {
     View,
 } from 'react-native'
 
+import IconButton from '../components/IconButton'
+
 const MealDetailsScreen = ({ route, navigation }) => {
     const [isImageLoading, setIsImageLoading] = useState(true)
     const {
@@ -41,12 +43,10 @@ const MealDetailsScreen = ({ route, navigation }) => {
         navigation.setOptions({
             headerRight: () => {
                 return (
-                    <Button
-                        title={'Tap me!!'}
+                    <IconButton
                         onPress={headerButtonPressHandler}
-                        style={{
-                            backgroundColor: 'transparent',
-                        }}
+                        icon="star"
+                        color="#e2b497"
                     />
                 )
             },
