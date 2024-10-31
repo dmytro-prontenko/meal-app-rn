@@ -2,12 +2,15 @@ import { useEffect, useLayoutEffect } from 'react'
 import { useState } from 'react'
 import {
     ActivityIndicator,
+    Button,
     Image,
     ScrollView,
     StyleSheet,
     Text,
     View,
 } from 'react-native'
+
+import IconButton from '../components/IconButton'
 
 const MealDetailsScreen = ({ route, navigation }) => {
     const [isImageLoading, setIsImageLoading] = useState(true)
@@ -25,9 +28,30 @@ const MealDetailsScreen = ({ route, navigation }) => {
         duration,
     } = route.params
 
+    const headerButtonPressHandler = () => {
+        console.log('Pressed')
+    }
+
     useLayoutEffect(() => {
-        navigation.setOptions({ title: mealTitle })
+        navigation.setOptions({
+            title: mealTitle,
+            // title: 'Meal detail',
+        })
     }, [navigation, mealTitle])
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return (
+                    <IconButton
+                        onPress={headerButtonPressHandler}
+                        icon="star"
+                        color="#e2b497"
+                    />
+                )
+            },
+        })
+    }, [navigation, headerButtonPressHandler])
 
     useEffect(() => {
         const loadImage = async () => {
