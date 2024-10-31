@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect } from 'react'
 import { useState } from 'react'
 import {
     ActivityIndicator,
+    Button,
     Image,
     ScrollView,
     StyleSheet,
@@ -25,9 +26,32 @@ const MealDetailsScreen = ({ route, navigation }) => {
         duration,
     } = route.params
 
+    const headerButtonPressHandler = () => {
+        console.log('Pressed')
+    }
+
     useLayoutEffect(() => {
-        navigation.setOptions({ title: mealTitle })
+        navigation.setOptions({
+            title: mealTitle,
+            // title: 'Meal detail',
+        })
     }, [navigation, mealTitle])
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return (
+                    <Button
+                        title={'Tap me!!'}
+                        onPress={headerButtonPressHandler}
+                        style={{
+                            backgroundColor: 'transparent',
+                        }}
+                    />
+                )
+            },
+        })
+    }, [navigation, headerButtonPressHandler])
 
     useEffect(() => {
         const loadImage = async () => {
