@@ -9,11 +9,10 @@ import {
 
 import { useNavigation } from '@react-navigation/native'
 
-import MealDetailsScreen from '../screens/MealDetailScreen'
+import MealDetailsScreen from '../../screens/MealDetailScreen'
 
 const MealItem = ({ item }) => {
     const navigation = useNavigation()
-    // console.log(item)
 
     const pressHandler = () => {
         navigation.navigate('MealDetails', {

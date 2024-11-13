@@ -3,8 +3,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 
 import { useRoute } from '@react-navigation/native'
 
-import CategoryGridTile from '../components/CategoryGridTile'
-import MealItem from '../components/MealItem'
+import MealsList from '../components/MealList/MealList'
 import { MEALS } from '../data/dummy-data'
 
 const MealsOverviewScreen = ({ navigation }) => {
@@ -23,12 +22,7 @@ const MealsOverviewScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View>
-                <FlatList
-                    data={displayedMeals}
-                    renderItem={({ item }) => <MealItem item={item} />}
-                    keyExtractor={(item) => item.id}
-                    style={styles.innerContainer}
-                />
+                <MealsList items={displayedMeals} />
             </View>
         </View>
     )
