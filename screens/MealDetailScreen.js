@@ -9,13 +9,18 @@ import {
     Text,
     View,
 } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import IconButton from '../components/IconButton'
-import { addToFavorites } from '../store/slices/favoritesSlice'
+import {
+    addToFavorites,
+    removeFromFavorites,
+    selectFavorites,
+} from '../store/slices/favoritesSlice'
 
 const MealDetailsScreen = ({ route, navigation }) => {
     const dispatch = useDispatch()
+    const favorites = useSelector(selectFavorites)
     const [isImageLoading, setIsImageLoading] = useState(true)
     const {
         mealID,
@@ -33,7 +38,9 @@ const MealDetailsScreen = ({ route, navigation }) => {
     } = route.params
 
     const headerButtonPressHandler = () => {
-        dispatch(addToFavorites(mealID))
+        favorites.includes(mealID)
+            ? dispatch(removeFromFavorites(mealID))
+            : dispatch(addToFavorites(mealID))
     }
 
     useLayoutEffect(() => {
@@ -49,7 +56,9 @@ const MealDetailsScreen = ({ route, navigation }) => {
                 return (
                     <IconButton
                         onPress={headerButtonPressHandler}
-                        icon="star"
+                        icon={
+                            favorites.includes(mealID) ? 'star' : 'star-outline'
+                        }
                         color="#e2b497"
                     />
                 )
